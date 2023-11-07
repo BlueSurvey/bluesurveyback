@@ -1,6 +1,11 @@
+<<<<<<< HEAD
+const getTokenFromHeader = require("../auth/getTokenFromHeader");
+const verifyToken = require("../auth/verifyToken");
+=======
 const jsonResponse = require("../libs/jsonResponse")
 const getTokenFromHeader = require("../auth/getTokenFromHeader")
 const { verifyAccessToken } = require("../auth/verifyToken")
+>>>>>>> 20f8501567e5ef4831e3dd523beb31fd07f5e979
 
 const authenticate = (requireAuth = true) => (req, res, next) => {
 
@@ -12,6 +17,26 @@ const authenticate = (requireAuth = true) => (req, res, next) => {
     const token = getTokenFromHeader(req.headers);
 
     if (token) {
+<<<<<<< HEAD
+        const decoded = verifyToken(token);
+        if (decoded) {
+            req.user = { ...decoded };
+            next();
+        } else {
+            res.status(401).json({
+                message: 'No autorizado'
+            })
+        }
+    } else {
+        res.status(401).json({
+            message: 'No autorizado'
+        })
+    }
+}
+
+
+module.exports = authenticate;
+=======
         const decoded = verifyAccessToken(token);
         if (decoded) {
             req.user = { ...decoded.user };
@@ -25,3 +50,4 @@ const authenticate = (requireAuth = true) => (req, res, next) => {
 }
 
 module.exports = authenticate;
+>>>>>>> 20f8501567e5ef4831e3dd523beb31fd07f5e979
